@@ -1,0 +1,71 @@
+<idea-plugin>
+    <id>eu.epitech.allinone</id>
+    <name>Epitech All-In-One</name>
+    <vendor>Louhan Nogues</vendor>
+
+    <description><![CDATA[
+    Epitech toolbox for CLion:
+    <ul>
+      <li><b>Header generation</b> (Ctrl+Shift+H) for C/C++, Makefile, Python, JS/TS, Java...</li>
+      <li><b>Banana coding style checker</b> powered by epiclang: live highlighting while typing,
+          file / project checks and <code>make CC=epiclang</code> builds, with a navigable report.</li>
+      <li><b>Coding style guide</b> (Ctrl+Shift+S) inside the IDE.</li>
+      <li>Settings in <i>Settings &gt; Tools &gt; Epitech</i>.</li>
+    </ul>
+    Requires <code>epiclang</code> to be installed.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="tools" id="eu.epitech.allinone.settings" displayName="Epitech"
+                                 instance="eu.epitech.allinone.settings.EpitechConfigurable"/>
+        <toolWindow id="Epitech" anchor="bottom" icon="AllIcons.General.InspectionsEye"
+                    factoryClass="eu.epitech.allinone.ui.EpitechToolWindowFactory"/>
+        <notificationGroup id="Epitech" displayType="BALLOON"/>
+        <postStartupActivity implementation="eu.epitech.allinone.banana.BananaStartupActivity"/>
+    </extensions>
+
+    <projectListeners>
+        <listener class="eu.epitech.allinone.banana.BananaFileEditorListener"
+                  topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+    </projectListeners>
+
+    <actions>
+        <group id="epitech.menu" text="Epitech" popup="true" icon="AllIcons.General.InspectionsEye">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+
+            <action id="epitech.generateHeader" class="eu.epitech.allinone.header.GenerateHeaderAction"
+                    text="Generate Epitech Header" description="Insert or replace the Epitech header"
+                    icon="AllIcons.Actions.AddFile">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift H"/>
+                <add-to-group group-id="GenerateGroup" anchor="first"/>
+            </action>
+            <separator/>
+            <action id="epitech.checkFile" class="eu.epitech.allinone.banana.CheckCurrentFileAction"
+                    text="Check Coding Style (Current File)" description="Run Banana on the current file"
+                    icon="AllIcons.Actions.Execute">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift L"/>
+                <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+                <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            </action>
+            <action id="epitech.checkProject" class="eu.epitech.allinone.banana.CheckProjectAction"
+                    text="Check Coding Style (Project)" description="Run Banana on every .c/.h file of the project"
+                    icon="AllIcons.Actions.RunAll">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift alt L"/>
+            </action>
+            <action id="epitech.buildWithBanana" class="eu.epitech.allinone.banana.BuildWithBananaAction"
+                    text="Build with Banana (make CC=epiclang)"
+                    description="Rebuild the project with make -B CC=epiclang and report Banana issues"
+                    icon="AllIcons.Actions.Compile">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift alt B"/>
+            </action>
+            <separator/>
+            <action id="epitech.showGuide" class="eu.epitech.allinone.banana.ShowStyleGuideAction"
+                    text="Show Coding Style Guide" description="Open the Epitech coding style reference"
+                    icon="AllIcons.Actions.Help">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift S"/>
+            </action>
+        </group>
+    </actions>
+</idea-plugin>

@@ -1,0 +1,190 @@
+<html>
+<head>
+<style>
+  body { font-family: sans-serif; }
+  h1 { font-size: 150%; margin-bottom: 2px; }
+  h2 { font-size: 125%; margin-top: 18px; margin-bottom: 4px; }
+  h3 { font-size: 105%; margin-top: 10px; margin-bottom: 2px; }
+  p { margin-top: 2px; margin-bottom: 4px; }
+  pre { font-family: monospace; margin-top: 2px; margin-bottom: 6px; }
+  .ok { color: #3a9a4a; font-weight: bold; }
+  .ko { color: #d04545; font-weight: bold; }
+  .tag { color: #888888; }
+</style>
+</head>
+<body>
+
+<h1>Epitech C Coding Style</h1>
+<p>Quick reference of the Epitech C coding style. Rules marked <span class="tag">[Banana]</span>
+are checked automatically by epiclang. Violations are graded by severity:
+<b>Major</b>, <b>Minor</b> and <b>Info</b>.</p>
+<p>Shortcuts: <b>Ctrl+Shift+H</b> header, <b>Ctrl+Shift+L</b> check file,
+<b>Ctrl+Alt+Shift+L</b> check project, <b>Ctrl+Shift+S</b> this guide.</p>
+
+<h2>O &ndash; Files organization</h2>
+<h3>C-O1 &ndash; Contents of the repository</h3>
+<p>No compiled (<code>.o</code>, <code>.a</code>, <code>.so</code>, binaries), temporary
+(<code>*~</code>, <code>#*#</code>) or unnecessary files in the repository.</p>
+<h3>C-O2 &ndash; File extension</h3>
+<p>Sources in C must only have <code>.c</code> or <code>.h</code> extensions.</p>
+<h3>C-O3 &ndash; File coherence <span class="tag">[Banana]</span></h3>
+<p>A file groups functions related to the same thing. At most <b>10 functions</b> per
+<code>.c</code> file, including at most <b>5 non-static</b> functions.</p>
+<h3>C-O4 &ndash; Naming files and folders</h3>
+<p>Names are in English, clear, in <code>snake_case</code>.</p>
+
+<h2>G &ndash; Global scope</h2>
+<h3>C-G1 &ndash; File header <span class="tag">[Banana]</span></h3>
+<p>Every <code>.c</code>, <code>.h</code> and Makefile starts with the Epitech header.
+The project name and description need at least 2 characters.
+Use <b>Ctrl+Shift+H</b> to generate it.</p>
+<pre>
+/*
+** EPITECH PROJECT, 2026
+** mini_printf
+** File description:
+** display formatted output
+*/
+</pre>
+<h3>C-G2 &ndash; Separation of functions <span class="tag">[Banana]</span></h3>
+<p>Exactly <b>one</b> empty line between two function implementations.</p>
+<h3>C-G3 &ndash; Indentation of preprocessor directives <span class="tag">[Banana]</span></h3>
+<p>Directives are indented according to their conditional nesting level.</p>
+<pre>
+#ifndef MY_H_
+    #define MY_H_
+    #include &lt;stddef.h&gt;
+#endif /* MY_H_ */
+</pre>
+<h3>C-G4 &ndash; Global variables <span class="tag">[Banana]</span></h3>
+<p>Global variables are forbidden; only global <b>constants</b> are allowed.</p>
+<h3>C-G5 &ndash; include <span class="tag">[Banana]</span></h3>
+<p><code>#include</code> only header files (<code>.h</code>), never <code>.c</code> files.</p>
+<h3>C-G6 &ndash; Line endings <span class="tag">[Banana]</span></h3>
+<p>Line endings are UNIX style (<code>\n</code>), never <code>\r\n</code>.
+No backslash-newline sequences.</p>
+<h3>C-G7 &ndash; Trailing spaces <span class="tag">[Banana]</span></h3>
+<p>No trailing spaces or tabs at the end of a line.</p>
+<h3>C-G8 &ndash; Leading / trailing lines <span class="tag">[Banana]</span></h3>
+<p>No empty line at the beginning or at the end of a file.</p>
+<h3>C-G9 &ndash; Constant values</h3>
+<p>Non-trivial constants are defined with a macro or a global constant, not written as magic numbers.</p>
+<h3>C-G10 &ndash; Inline assembly <span class="tag">[Banana]</span></h3>
+<p>Inline assembly is forbidden.</p>
+
+<h2>F &ndash; Functions</h2>
+<h3>C-F1 &ndash; Coherence of functions</h3>
+<p>A function does one single thing.</p>
+<h3>C-F2 &ndash; Naming functions <span class="tag">[Banana]</span></h3>
+<p>Function names are in English, in <code>snake_case</code>, and describe an action (verb).</p>
+<pre>
+<span class="ok">int count_words(char const *str);</span>
+<span class="ko">int CountWords(char const *str);</span>
+</pre>
+<h3>C-F3 &ndash; Number of columns <span class="tag">[Banana]</span></h3>
+<p>A line never exceeds <b>80 columns</b> (a tab counts as several columns).</p>
+<h3>C-F4 &ndash; Number of lines <span class="tag">[Banana]</span></h3>
+<p>The body of a function never exceeds <b>20 lines</b> (braces excluded).</p>
+<h3>C-F5 &ndash; Arguments <span class="tag">[Banana]</span></h3>
+<p>A function takes at most <b>4 parameters</b>.</p>
+<h3>C-F6 &ndash; Functions without arguments <span class="tag">[Banana]</span></h3>
+<p>A function without parameter must be prototyped with <code>void</code>.</p>
+<pre>
+<span class="ok">int main(void)</span>
+<span class="ko">int main()</span>
+</pre>
+<h3>C-F7 &ndash; Structures as parameters <span class="tag">[Banana]</span></h3>
+<p>Structures are passed by pointer, never by copy.</p>
+<pre>
+<span class="ok">void print_point(point_t const *p);</span>
+<span class="ko">void print_point(point_t p);</span>
+</pre>
+<h3>C-F8 &ndash; Comments inside a function <span class="tag">[Banana]</span></h3>
+<p>No comments inside a function body. Comment above the function instead.</p>
+<h3>C-F9 &ndash; Nested functions</h3>
+<p>Nested functions are forbidden.</p>
+
+<h2>L &ndash; Layout inside a function scope</h2>
+<h3>C-L1 &ndash; Code line content <span class="tag">[Banana]</span></h3>
+<p>One statement per line. No assignment inside a condition, a return or another declaration.</p>
+<pre>
+<span class="ok">fd = open(path, O_RDONLY);
+if (fd == -1)
+    return 84;</span>
+<span class="ko">if ((fd = open(path, O_RDONLY)) == -1) return 84;</span>
+</pre>
+<h3>C-L2 &ndash; Indentation <span class="tag">[Banana]</span></h3>
+<p>Indent with groups of <b>4 spaces</b>. Tabs are forbidden for indentation.</p>
+<h3>C-L3 &ndash; Spaces <span class="tag">[Banana]</span></h3>
+<p>One space after keywords (<code>if</code>, <code>while</code>, <code>for</code>,
+<code>return</code>...), after commas, and around binary/ternary operators.
+No space between a function name and its <code>(</code>.
+<code>sizeof</code> uses parentheses. Never several spaces in a row for spacing.</p>
+<pre>
+<span class="ok">for (int i = 0; i &lt; len; i++)</span>
+<span class="ko">for(int i=0;i&lt;len;i++)</span>
+</pre>
+<h3>C-L4 &ndash; Curly brackets <span class="tag">[Banana]</span></h3>
+<p>Opening braces of control structures are on the same line as the condition; closing braces
+are alone on their line (except before <code>else</code> / <code>while</code> of a do-while).
+A function body's opening brace is alone on the line after the prototype.</p>
+<pre>
+<span class="ok">int my_abs(int nb)
+{
+    if (nb &lt; 0) {
+        return -nb;
+    } else {
+        return nb;
+    }
+}</span>
+</pre>
+<h3>C-L5 &ndash; Variable declarations <span class="tag">[Banana]</span></h3>
+<p>Variables are declared at the beginning of the function, one declaration per line.</p>
+<h3>C-L6 &ndash; Blank lines <span class="tag">[Banana]</span></h3>
+<p>One blank line separates the variable declarations from the rest of the function.
+No other blank line inside a function.</p>
+
+<h2>V &ndash; Variables and types</h2>
+<h3>C-V1 &ndash; Naming identifiers <span class="tag">[Banana]</span></h3>
+<p>Variables, functions, typedefs in <code>snake_case</code>; macros and enum constants in
+<code>UPPER_SNAKE_CASE</code>. Typedef names usually end with <code>_t</code>.</p>
+<h3>C-V2 &ndash; Structures</h3>
+<p>Structures group coherent data only.</p>
+<h3>C-V3 &ndash; Pointers <span class="tag">[Banana]</span></h3>
+<p>The pointer symbol <code>*</code> is attached to the variable name, not to the type.</p>
+<pre>
+<span class="ok">char *str;</span>
+<span class="ko">char* str;</span>
+</pre>
+
+<h2>C &ndash; Control structures</h2>
+<h3>C-C1 &ndash; Conditional branching <span class="tag">[Banana]</span></h3>
+<p>A conditional chain (<code>if</code> / <code>else if</code> / <code>else</code>) has at most
+3 branches, and nesting must stay shallow: split into functions instead.</p>
+<h3>C-C2 &ndash; Ternary operators <span class="tag">[Banana]</span></h3>
+<p>Ternaries must stay simple: never nested, no side effects, branches must differ.</p>
+<h3>C-C3 &ndash; goto <span class="tag">[Banana]</span></h3>
+<p><code>goto</code> is forbidden.</p>
+
+<h2>H &ndash; Header files</h2>
+<h3>C-H1 &ndash; Content <span class="tag">[Banana]</span></h3>
+<p>Headers contain only prototypes, macros, types, global constants and
+<code>static inline</code> functions. Prototypes and typedefs live in headers, not in
+<code>.c</code> files.</p>
+<h3>C-H2 &ndash; Include guard <span class="tag">[Banana]</span></h3>
+<p>Every header is protected against double inclusion.</p>
+<h3>C-H3 &ndash; Macros <span class="tag">[Banana]</span></h3>
+<p>Macros fit on a single line and contain a single statement.</p>
+
+<h2>A &ndash; Advanced</h2>
+<h3>C-A1 &ndash; Constant pointers</h3>
+<p>Use <code>const</code> for pointed data that is not modified.</p>
+<h3>C-A2 &ndash; Typing</h3>
+<p>Use the most accurate type (<code>size_t</code>, <code>ssize_t</code>, <code>unsigned</code>...).</p>
+<h3>C-A3 &ndash; Line break at end of file <span class="tag">[Banana]</span></h3>
+<p>Every file ends with a line break.</p>
+<h3>C-A4 &ndash; Static</h3>
+<p>Functions and globals only used in one file are declared <code>static</code>.</p>
+
+</body>
+</html>
